@@ -1,7 +1,7 @@
 attrs==23.1.0
 certifi==2023.7.22
 cffi==1.15.1
-chromedriver-py==118.0.5993.70
+chromedriver-py==122.0.6261.128
 exceptiongroup==1.1.2
 h11==0.14.0
 idna==3.4
