@@ -12,7 +12,7 @@ from itertools import islice
 def scrape(meta_data, config, write_data, start_index=0):
     driver = None
     try:        
-        timeout, driver = setup_driver()
+        timeout, driver = setup_driver(config)
         output_data = []
         container_datas = []
         iterator = iter(islice(meta_data, start_index, None))
@@ -169,10 +169,14 @@ def get_item_data(content_config, item):
             new_item[selectValue['keyName']] = value
     return new_item
 
-def setup_driver():
+def setup_driver(config):
     driver_service = Service(binary_path)
     option = webdriver.ChromeOptions()
-    option.add_argument('--headless')
+    if config['headless']:
+        option.add_argument('--headless')
+    if config['userAgent']:
+        user_agent = config['userAgent']
+        option.add_argument(f'user-agent={user_agent}')
     option.add_argument('--no-sandbox')
     option.add_argument('--incognito')
     option.add_argument('--disable-dev-sh-usage')
