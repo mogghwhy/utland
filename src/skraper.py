@@ -162,7 +162,7 @@ def get_item_data(content_config, item):
         if selectValue['selectTarget'] == 'attribute':
             attribute = selectValue['selectValue']
             value = item.get_attribute(attribute)
-            if selectValue['appendString']:
+            if ('appendString' in selectValue) and (selectValue['appendString']):
                 appendValue = selectValue['appendString']                
                 value = append_string(appendValue, value)
             new_item[selectValue['keyName']] = value         
