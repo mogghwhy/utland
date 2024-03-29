@@ -158,6 +158,7 @@ def get_container_data(driver, config):
 def get_item_data(content_config, item):
     new_item = {}    
     for selectValue in content_config['contentItem']['selectValues']:
+        value = ''
         if selectValue['selectTarget'] == 'attribute':
             attribute = selectValue['selectValue']
             value = item.get_attribute(attribute)
@@ -166,7 +167,6 @@ def get_item_data(content_config, item):
                 value = append_string(appendValue, value)
             new_item[selectValue['keyName']] = value         
         elif selectValue['selectTarget'] == 'text':
-            value = ''
             if item is not None:
                 value = item.text
             new_item[selectValue['keyName']] = value
