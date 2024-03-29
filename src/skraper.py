@@ -108,6 +108,7 @@ def return_elements(driver, content_config, condition, locate_by_ec, locate_by_v
 
 def get_container_data(driver, config):
     container_data = []
+    order = {'firstItem': 0, 'secondItem': 1}
     name = None
     for index, content_config in enumerate(config['contentContainers']):
         print(f'attempting to find the container with index {index}')
@@ -130,8 +131,9 @@ def get_container_data(driver, config):
         content_item_locate_by_value = content_config['contentItem']['locateByValue']
         content_item_locate_by_ec = get_location_constant(content_item_locate_by)
         content_item_is_present = EC.presence_of_element_located((content_item_locate_by_ec, content_item_locate_by_value))
-        if content_config['contentItem']['type'] == 'firstItem':
-            err, item = get_element(container_element, content_config, content_item_is_present, content_item_locate_by_ec, content_item_locate_by_value, 0)
+        if content_config['contentItem']['type'] in order:
+            whichOne = order[content_config['contentItem']['type']]
+            err, item = get_element(container_element, content_config, content_item_is_present, content_item_locate_by_ec, content_item_locate_by_value, whichOne)
             item_data = None
             item_data = get_item_data(content_config, item)
             container_data.append(item_data)
