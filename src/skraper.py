@@ -161,13 +161,23 @@ def get_item_data(content_config, item):
         if selectValue['selectTarget'] == 'attribute':
             attribute = selectValue['selectValue']
             value = item.get_attribute(attribute)
-            new_item[selectValue['keyName']] = value
+            if selectValue['appendString']:
+                appendValue = selectValue['appendString']                
+                value = append_string(appendValue, value)
+            new_item[selectValue['keyName']] = value         
         elif selectValue['selectTarget'] == 'text':
             value = ''
             if item is not None:
                 value = item.text
             new_item[selectValue['keyName']] = value
     return new_item
+
+def append_string(appendValue, value):
+    append_list = []
+    append_list.append(value)
+    append_list.append(appendValue)
+    value = ''.join(append_list)
+    return value
 
 def setup_driver(config):
     driver_service = Service(binary_path)
